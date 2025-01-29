@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
-import 'login.dart'; // Import the new file
+import 'package:flutter/services.dart';
+import 'package:velora_prototype/login.dart';
+import 'package:velora_prototype/signup.dart';
+import 'home.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -11,13 +20,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Velora',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor:
-            const Color(0xFFB42B2B), // Updated to match the red in images
-        scaffoldBackgroundColor: Colors.white,
+        primaryColor: const Color(0xFF672A2A),
+        scaffoldBackgroundColor: Colors.grey[100],
       ),
-      home: const OnboardingScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const OnboardingScreen(),
+        '/home': (context) => const HomePage(),
+        '/signup': (context) => const Signup(), // Route for SignUpPage
+      },
     );
   }
 }
@@ -61,7 +74,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      // Navigate to the HomeScreen
+      // Navigate to the login page after the last onboarding screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const Login()),
       );
@@ -169,12 +182,12 @@ class OnboardingPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24),
+              const SizedBox(height: 0),
               Image.asset(
                 'images/logo.png',
-                height: 32,
+                height: 24,
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 0),
               Text(
                 content.title,
                 style: const TextStyle(
@@ -197,6 +210,8 @@ class OnboardingPage extends StatelessWidget {
                 child: Center(
                   child: Image.asset(
                     content.image,
+                    height: 300,
+                    width: 300,
                     fit: BoxFit.contain,
                   ),
                 ),

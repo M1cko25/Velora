@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
-import 'signup.dart';
+import 'home.dart';
+import 'signup.dart'; // Add this import for the SignUpPage
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void _login() {
+    if (usernameController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty) {
+      // Navigate to HomePage after successful login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    } else {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter valid credentials")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +63,7 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: usernameController,
                 decoration: InputDecoration(
                   hintText: 'ENTER USERNAME',
                   hintStyle: TextStyle(
@@ -66,6 +92,7 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'ENTER PASSWORD',
@@ -88,9 +115,7 @@ class Login extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {
-                    // Handle forgot password
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'Forgot Password?',
                     style: TextStyle(
@@ -102,9 +127,7 @@ class Login extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
-                  // Handle login
-                },
+                onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFB42B2B),
                   minimumSize: const Size(double.infinity, 56),
@@ -122,86 +145,22 @@ class Login extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'or',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      color: Colors.grey[300],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
+              const SizedBox(height: 16),
+              // Sign Up Button to navigate to SignUpPage
+              TextButton(
                 onPressed: () {
-                  // Handle Google sign in
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Signup()),
+                  );
                 },
-                icon: Image.asset(
-                  'images/Google.png',
-                  height: 24,
-                ),
-                label: const Text(
-                  'with Google',
+                child: const Text(
+                  'Don’t have an account? Sign Up',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    color: Colors.purple,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFB42B2B),
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  elevation: 0,
-                ),
-              ),
-              const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account? ",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => const Signup()),
-                      );
-                    },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.purple,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ],
           ),
