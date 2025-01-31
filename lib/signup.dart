@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'login.dart';
+import 'package:velora_prototype/google.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _SignupState createState() => _SignupState();
 }
 
@@ -84,12 +83,12 @@ class _SignupState extends State<Signup> {
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 0),
                 Image.asset(
                   'images/logo.png',
-                  height: 32,
+                  height: 40,
                 ),
                 const SizedBox(height: 24),
                 const Text(
@@ -111,6 +110,7 @@ class _SignupState extends State<Signup> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _usernameController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'ENTER USERNAME',
                     hintStyle: TextStyle(
@@ -147,7 +147,7 @@ class _SignupState extends State<Signup> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
+                  obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'ENTER EMAIL',
                     hintStyle: TextStyle(
@@ -364,7 +364,7 @@ class _SignupState extends State<Signup> {
                       child: const Text(
                         'Login',
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: Colors.blue,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
