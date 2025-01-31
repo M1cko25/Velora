@@ -18,3 +18,5 @@ samples, guidance on mobile development, and a full API reference.
 "# New-Velora" 
 "# New-Velora" 
 "# New-Velora" 
+"# velor" 
+"# velor" 
